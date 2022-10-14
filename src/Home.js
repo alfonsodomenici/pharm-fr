@@ -17,7 +17,7 @@ export default class Home extends HTMLElement{
             <section class="hero">
                 <div class="hero-body">
                 <p class="title">
-                    Blog App di esempio
+                    Pharm App
                 </p>
                 <p class="subtitle">
                     Sviluppata con lit-html, vaadin-router, bulma.io e web-components
@@ -27,4 +27,4 @@ export default class Home extends HTMLElement{
         `;
     }
 }
-customElements.define("blog-home", Home);
+customElements.define("pharm-home", Home);

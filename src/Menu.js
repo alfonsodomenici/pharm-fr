@@ -63,8 +63,8 @@ export default class Menu extends HTMLElement{
                         Home
                         </a>
                 
-                        <a class="navbar-item" href="/posts">
-                        Posts
+                        <a class="navbar-item" href="/pharms">
+                        Pharms
                         </a>
                     </div>
                 </div>
@@ -73,4 +73,4 @@ export default class Menu extends HTMLElement{
         `;
     }
 }
-customElements.define("blog-menu", Menu);
+customElements.define("pharm-menu", Menu);

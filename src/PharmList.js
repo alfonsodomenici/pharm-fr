@@ -1,8 +1,10 @@
+import configData from "./config.js";
 import { html, render } from "./lib/lit-html.js";
 import { Router } from "./lib/vaadin-router.js";
-import { allPosts,deletePost } from "./postStore.js";
+import { removePharm } from "./pharmStore.js";
+import {pharmsByUser} from "./userStore.js"
 
-export default class PostList extends HTMLElement {
+export default class PharmList extends HTMLElement {
 
     constructor() {
         super();
@@ -14,14 +16,14 @@ export default class PostList extends HTMLElement {
     }
 
     connectedCallback() {
-        this.loadAndRenderPosts();
+        this.loadAndRenderPharms();
     }
 
     disconnectedCallback() {
     }
 
-    loadAndRenderPosts(){
-        allPosts().then(data => {
+    loadAndRenderPharms(){
+        pharmsByUser(configData.userId).then(data => {
             this.data = data;
             render(this.renderView(), this.getRoot());
         })
@@ -32,20 +34,20 @@ export default class PostList extends HTMLElement {
 
     onCreate(e) {
         e.preventDefault();
-        Router.go(`/createPost`)
+        Router.go(`/createPharm`)
     }
 
     onEdit(e, id) {
         e.preventDefault();
-        Router.go(`/posts/${id}`)
+        Router.go(`/pharms/${id}`)
     }
 
 
     onDelete(e, id) {
         e.preventDefault(); 
-        deletePost(id)
+        removePharm(id)
         .then(resp => {
-            this.loadAndRenderPosts();
+            this.loadAndRenderPharms();
         });
         
     }
@@ -68,10 +70,10 @@ export default class PostList extends HTMLElement {
     renderView() {
         return html`
             
-            <h1 class="title has-text-centered">Tutti i posts</h1>
+            <h1 class="title has-text-centered">Le tue Pharms</h1>
             
             <div class="list">
-                ${this.data.map(post => this.renderPost(post))}
+                ${this.data.map(p => this.renderPharm(p))}
             </div>
 
             <button @click = ${e => this.onCreate(e)} class="button is-primary">Nuovo</button>
@@ -79,22 +81,25 @@ export default class PostList extends HTMLElement {
         `;
     }
 
-    renderPost(post) {
+    renderPharm(p) {
         return html`
             <div class="list-item">
                 <div class="list-item-content">
-                    <div class="list-item-title">${post.title}</div>
-                    <div class="list-item-description">${post.content}</div>
+                    <div class="list-item-title">${p.name}</div>
+                    <div class="list-item-description">${p.ip}</div>
+                    <div class="list-item-description">${p.macaddress}</div>
+                    <div class="list-item-description">${p.accesspoint}</div>
                 </div>
+
                 <div class="list-item-controls">
                     <div class="buttons">
-                        <button class="button is-warning" @click = ${e => this.onEdit(e, post.id)}>
+                        <button class="button is-warning" @click = ${e => this.onEdit(e, p.id)}>
                             <span class="icon is-small">
                             <i class="fas fa-edit"></i>
                             </span>
                             <span>Edit</span>
                         </button>
-                        <button class="button is-danger" @click = ${e => this.onDelete(e, post.id)}>
+                        <button class="button is-danger" @click = ${e => this.onDelete(e, p.id)}>
                             <span class="icon is-small">
                             <i class="fas fa-trash"></i>
                             </span>
@@ -107,4 +112,4 @@ export default class PostList extends HTMLElement {
     }
 }
 
-customElements.define("post-list", PostList);
+customElements.define("pharm-list", PharmList);
