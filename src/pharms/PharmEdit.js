@@ -1,9 +1,9 @@
-import { html, render } from "./lib/lit-html.js";
-import { Router } from "./lib/vaadin-router.js";
-import { router } from "./index.js";
+import { html, render } from "./../lib/lit-html.js";
+import { Router } from "./../lib/vaadin-router.js";
+import { router } from "./../index.js";
 import { findPharm, updatePharm } from "./pharmStore.js";
-import { createPharm } from "./userStore.js";
-import configData from "./config.js";
+import { createPharm } from "./../users/userStore.js";
+import configData from "./../config.js";
 
 export default class PharmEdit extends HTMLElement {
 

@@ -1,4 +1,4 @@
-import configData from "./config.js";
+import configData from "./../config.js";
 
 const url = `${configData.baseurl}/pharms`;
 

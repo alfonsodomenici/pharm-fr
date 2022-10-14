@@ -1,8 +1,8 @@
-import configData from "./config.js";
-import { html, render } from "./lib/lit-html.js";
-import { Router } from "./lib/vaadin-router.js";
+import configData from "./../config.js";
+import { html, render } from "./../lib/lit-html.js";
+import { Router } from "./../lib/vaadin-router.js";
 import { removePharm } from "./pharmStore.js";
-import {pharmsByUser} from "./userStore.js"
+import {pharmsByUser} from "./../users/userStore.js"
 
 export default class PharmList extends HTMLElement {
 

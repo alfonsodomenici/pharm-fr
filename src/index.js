@@ -1,5 +1,5 @@
-import "./PharmList.js";
-import "./PharmEdit.js";
+import "./pharms/PharmList.js";
+import "./pharms/PharmEdit.js";
 import "./Menu.js";
 import "./Home.js"
 import { Router } from "./lib/vaadin-router.js";
