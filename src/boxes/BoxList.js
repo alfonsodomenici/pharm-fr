@@ -1,10 +1,9 @@
-import configData from "./../config.js";
-import { html, render } from "./../lib/lit-html.js";
-import { Router } from "./../lib/vaadin-router.js";
-import { removePharm } from "./pharmStore.js";
-import {pharmsByUser} from "./../users/userStore.js"
+import configData from "../config.js";
+import { html, render } from "../lib/lit-html.js";
+import { Router } from "../lib/vaadin-router.js";
+import { removeBox } from "./boxStore.js";
 
-export default class PharmList extends HTMLElement {
+export default class BoxList extends HTMLElement {
 
     constructor() {
         super();
@@ -23,7 +22,7 @@ export default class PharmList extends HTMLElement {
     }
 
     loadAndRenderPharms(){
-        pharmsByUser(configData.userId).then(data => {
+        boxesByPharm(configData.pharmId).then(data => {
             this.data = data;
             render(this.renderView(), this.getRoot());
         })
@@ -32,39 +31,24 @@ export default class PharmList extends HTMLElement {
     -------------------- eventi -------------------
     */
 
-    onSelect(e, id) { //<article @click = ${e => this.onSelect(e, post.id)}>
-        e.preventDefault();
-        Router.go(`/pharms/${id}/boxes`)
-    }
-
     onCreate(e) {
         e.preventDefault();
-        Router.go(`/createPharm`)
+        Router.go(`/createBox`)
     }
 
     onEdit(e, id) {
         e.preventDefault();
-        Router.go(`/pharms/${id}`)
+        Router.go(`/boxes/${id}`)
     }
+
 
     onDelete(e, id) {
         e.preventDefault(); 
-        removePharm(id)
+        removeBox(id)
         .then(resp => {
             this.loadAndRenderPharms();
         });
         
-    }
-
-    onTestEvent(e){
-        e.preventDefault(); 
-       const evt = new CustomEvent('blog-event',{
-            detail:{
-                category: 'prova'
-            },
-            bubbles: true
-        })
-        document.dispatchEvent(evt);
     }
 
     /*
@@ -74,36 +58,36 @@ export default class PharmList extends HTMLElement {
     renderView() {
         return html`
             
-            <h1 class="title has-text-centered">Le tue Pharms</h1>
+            <h1 class="title has-text-centered">I tuoi boxes</h1>
             
             <div class="list">
-                ${this.data.map(p => this.renderPharm(p))}
+                ${this.data.map(b => this.renderBox(b))}
             </div>
 
             <button @click = ${e => this.onCreate(e)} class="button is-primary">Nuovo</button>
-            <button @click = ${e => this.onTestEvent(e)} class="button is-primary">CustomEvent</button>
         `;
     }
 
-    renderPharm(p) {
+    renderBox(b) {
         return html`
-            <div class="list-item" @click = ${e => this.onSelect(e, post.id)}>
+            <div class="list-item">
                 <div class="list-item-content">
-                    <div class="list-item-title">${p.name}</div>
-                    <div class="list-item-description">${p.ip}</div>
-                    <div class="list-item-description">${p.macaddress}</div>
-                    <div class="list-item-description">${p.accesspoint}</div>
+                    <div class="list-item-title">${b.number}</div>
+                    <div class="list-item-description">${b.color}</div>
+                    <div class="list-item-description">${b.messagge}</div>
+                    <div class="list-item-description">${b.timebox}</div>
+                    <div class="list-item-description">${b.deltatime}</div>
                 </div>
 
                 <div class="list-item-controls">
                     <div class="buttons">
-                        <button class="button is-warning" @click = ${e => this.onEdit(e, p.id)}>
+                        <button class="button is-warning" @click = ${e => this.onEdit(e, b.id)}>
                             <span class="icon is-small">
                             <i class="fas fa-edit"></i>
                             </span>
                             <span>Edit</span>
                         </button>
-                        <button class="button is-danger" @click = ${e => this.onDelete(e, p.id)}>
+                        <button class="button is-danger" @click = ${e => this.onDelete(e, b.id)}>
                             <span class="icon is-small">
                             <i class="fas fa-trash"></i>
                             </span>
@@ -116,4 +100,4 @@ export default class PharmList extends HTMLElement {
     }
 }
 
-customElements.define("pharm-list", PharmList);
+customElements.define("box-list", BoxList);
