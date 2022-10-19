@@ -25,7 +25,7 @@ export default class BoxEdit extends HTMLElement {
                 color:'',
                 message:'',
                 timebox:'',
-                deltatime:''  
+                delta:''  
             }
             render(this.renderView(), this.getRoot());
         } else {
@@ -53,12 +53,12 @@ export default class BoxEdit extends HTMLElement {
         if (this.id === "undefined") {
             createBox(configData.pharmId, this.data)
                 .then(_ => {
-                    Router.go(`/boxes/`);
+                    Router.go(`/pharms/${configData.pharmId}/boxes/`);
                 })
         } else {
             updateBox(this.id, this.data)
                 .then(_ => {
-                    Router.go(`/boxes/`);
+                    Router.go(`/pharms/${id}/boxes/`);
                 })
         }
 
@@ -66,7 +66,7 @@ export default class BoxEdit extends HTMLElement {
 
     onCancel(e) {
         e.preventDefault();
-        Router.go(`/boxes/`);
+        Router.go(`/pharms/${configData.pharmId}/boxes/`);
     }
 
     renderView() {
@@ -75,7 +75,7 @@ export default class BoxEdit extends HTMLElement {
                 <div class="field">
                     <label class="label">Number</label>
                     <div class="control">
-                        <input required class="input" type="number" @change=${e => this.onInputChange(e)} name="number" .value=${this.data.number}>
+                        <input required class="input" type="number" @change=${e => this.onInputChange(e)} name="number" min="1" .value=${this.data.number}>
                     </div>
                 </div>
                 
@@ -89,7 +89,7 @@ export default class BoxEdit extends HTMLElement {
                 <div class="field">
                     <label class="label">Messagge</label>
                     <div class="control">
-                        <textarea  required class="textarea" name="messagge" @change=${e => this.onInputChange(e)} .value=${this.data.message} placeholder="Contenuto box..."></textarea>
+                        <textarea  required class="textarea" name="message" @change=${e => this.onInputChange(e)} .value=${this.data.message} placeholder="Contenuto box..."></textarea>
                     </div>
                 </div>
 
@@ -103,7 +103,7 @@ export default class BoxEdit extends HTMLElement {
                 <div class="field">
                     <label class="label">Margine d'assunzione</label>
                     <div class="control">
-                        <input required class="input" type="number" name="deltatime" @change=${e => this.onInputChange(e)} .value=${this.data.deltatime}>
+                        <input required class="input" type="number" name="delta" @change=${e => this.onInputChange(e)} .value=${this.data.delta}>
                     </div>
                 </div>
 

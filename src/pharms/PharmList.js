@@ -2,7 +2,7 @@ import configData from "./../config.js";
 import { html, render } from "./../lib/lit-html.js";
 import { Router } from "./../lib/vaadin-router.js";
 import { removePharm } from "./pharmStore.js";
-import {pharmsByUser} from "./../users/userStore.js"
+import { pharmsByUser } from "./../users/userStore.js"
 
 export default class PharmList extends HTMLElement {
 
@@ -32,7 +32,7 @@ export default class PharmList extends HTMLElement {
     -------------------- eventi -------------------
     */
 
-    onSelect(e, id) { //<article @click = ${e => this.onSelect(e, post.id)}>
+    onSelect(e, id) {
         e.preventDefault();
         Router.go(`/pharms/${id}/boxes`)
     }
@@ -87,7 +87,7 @@ export default class PharmList extends HTMLElement {
 
     renderPharm(p) {
         return html`
-            <div class="list-item" @click = ${e => this.onSelect(e, post.id)}>
+            <div class="list-item" @click = ${e => this.onSelect(e, p.id)}>
                 <div class="list-item-content">
                     <div class="list-item-title">${p.name}</div>
                     <div class="list-item-description">${p.ip}</div>
