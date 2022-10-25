@@ -1,6 +1,7 @@
 import configData from "../config.js";
 import { html, render } from "../lib/lit-html.js";
 import { Router } from "../lib/vaadin-router.js";
+import { router } from "../index.js";
 import { boxesByPharm } from "../pharms/pharmStore.js";
 import { removeBox } from "./boxStore.js";
 
@@ -16,14 +17,16 @@ export default class BoxList extends HTMLElement {
     }
 
     connectedCallback() {
-        this.loadAndRenderBoxes();
+        const { location } = router;
+        this.id = location.params.pharm;
+        this.loadAndRenderBoxes(this.id);
     }
 
     disconnectedCallback() {
     }
 
-    loadAndRenderBoxes(){
-        boxesByPharm(configData.pharmId).then(data => {
+    loadAndRenderBoxes(id){
+        boxesByPharm(id).then(data => {
             this.data = data;
             render(this.renderView(), this.getRoot());
         })

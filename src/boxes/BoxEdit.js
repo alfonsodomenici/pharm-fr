@@ -51,12 +51,12 @@ export default class BoxEdit extends HTMLElement {
             return;
         }
         if (this.id === "undefined") {
-            createBox(configData.pharmId, this.data)
+            createBox()
                 .then(_ => {
-                    Router.go(`/pharms/${configData.pharmId}/boxes/`);
+                    Router.go(`/pharms/${}/boxes/`);
                 })
         } else {
-            updateBox(this.id, this.data)
+            updateBox()
                 .then(_ => {
                     Router.go(`/pharms/${id}/boxes/`);
                 })
@@ -66,7 +66,7 @@ export default class BoxEdit extends HTMLElement {
 
     onCancel(e) {
         e.preventDefault();
-        Router.go(`/pharms/${configData.pharmId}/boxes/`);
+        Router.go(`/pharms/${}/boxes/`);
     }
 
     renderView() {
