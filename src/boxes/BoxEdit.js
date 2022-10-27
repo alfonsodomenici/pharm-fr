@@ -3,7 +3,6 @@ import { Router } from "../lib/vaadin-router.js";
 import { router } from "../index.js";
 import { findBox, updateBox } from "./boxStore.js";
 import { createBox } from "../pharms/pharmStore.js";
-import configData from "../config.js";
 
 export default class BoxEdit extends HTMLElement {
 
@@ -17,7 +16,7 @@ export default class BoxEdit extends HTMLElement {
 
     connectedCallback() {
         const { location } = router;
-        this.id = location.params.box ;
+        this.id = location.params.box;
         if (this.id == "undefined") {
             console.log("create..")
             this.data = {
@@ -43,7 +42,7 @@ export default class BoxEdit extends HTMLElement {
         this.data[name] = value;
     }
 
-    onSave(e) {
+    onSave(e, idpharm) {
         e.preventDefault();
         const {form} = e.target;
         if(!form.checkValidity()){
@@ -53,12 +52,12 @@ export default class BoxEdit extends HTMLElement {
         if (this.id === "undefined") {
             createBox()
                 .then(_ => {
-                    Router.go(`/pharms/${}/boxes/`);
+                    Router.go(`/pharms/${idpharm}/boxes/`);
                 })
         } else {
             updateBox()
                 .then(_ => {
-                    Router.go(`/pharms/${id}/boxes/`);
+                    Router.go(`/pharms/${idpharm}/boxes/`);
                 })
         }
 
@@ -66,7 +65,8 @@ export default class BoxEdit extends HTMLElement {
 
     onCancel(e) {
         e.preventDefault();
-        Router.go(`/pharms/${}/boxes/`);
+        console.log(idpharm);
+        Router.go(`/pharms/${idpharm}/boxes/`);
     }
 
     renderView() {
@@ -109,7 +109,7 @@ export default class BoxEdit extends HTMLElement {
 
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="button is-link" @click = ${e => this.onSave(e)}>Save</button>
+                        <button class="button is-link" @click = ${e => this.onSave(e, this.data.idpharm)}>Save</button>
                     </div>
                     <div class="control">
                         <button class="button is-link is-light" @click = ${e => this.onCancel(e)}>Cancel</button>

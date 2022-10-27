@@ -1,4 +1,3 @@
-import configData from "../config.js";
 import { html, render } from "../lib/lit-html.js";
 import { Router } from "../lib/vaadin-router.js";
 import { router } from "../index.js";
@@ -50,7 +49,7 @@ export default class BoxList extends HTMLElement {
         e.preventDefault(); 
         removeBox(id)
         .then(resp => {
-            this.loadAndRenderBoxes();
+            this.loadAndRenderBoxes(this.id);
         });
         
     }
