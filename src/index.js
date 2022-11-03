@@ -16,7 +16,7 @@ router.setRoutes([
     {path: '/createPharm',     component: 'pharm-edit'},
     {path: '/pharms/:pharm',     component: 'pharm-edit'},
     {path: '/pharms/:pharm/boxes',     component: 'box-list'},
-    {path: '/createBox',     component: 'box-edit'},
+    {path: '/pharms/:pharm/boxes/new',     component: 'box-edit'},
     {path: '/boxes/:box',     component: 'box-edit'},
   ]);
 

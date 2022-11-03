@@ -34,9 +34,9 @@ export default class BoxList extends HTMLElement {
     -------------------- eventi -------------------
     */
 
-    onCreate(e) {
+    onCreate(e, id) {
         e.preventDefault();
-        Router.go(`/createBox`)
+        Router.go(`/pharms/${id}/boxes/new`)
     }
 
     onEdit(e, id) {
@@ -67,7 +67,7 @@ export default class BoxList extends HTMLElement {
                 ${this.data.map(b => this.renderBox(b))}
             </div>
 
-            <button @click = ${e => this.onCreate(e)} class="button is-primary">Nuovo</button>
+            <button @click = ${e => this.onCreate(e, this.id)} class="button is-primary">Nuovo</button>
         `;
     }
 

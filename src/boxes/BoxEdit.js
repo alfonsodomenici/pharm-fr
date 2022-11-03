@@ -17,6 +17,7 @@ export default class BoxEdit extends HTMLElement {
     connectedCallback() {
         const { location } = router;
         this.id = location.params.box;
+        this.pharmId = location.params.pharm;
         if (this.id == "undefined") {
             console.log("create..")
             this.data = {
@@ -24,7 +25,7 @@ export default class BoxEdit extends HTMLElement {
                 color:'',
                 message:'',
                 timebox:'',
-                delta:''  
+                deltatime:''  
             }
             render(this.renderView(), this.getRoot());
         } else {
@@ -42,7 +43,7 @@ export default class BoxEdit extends HTMLElement {
         this.data[name] = value;
     }
 
-    onSave(e, idpharm) {
+    onSave(e, pharmId) {
         e.preventDefault();
         const {form} = e.target;
         if(!form.checkValidity()){
@@ -50,23 +51,27 @@ export default class BoxEdit extends HTMLElement {
             return;
         }
         if (this.id === "undefined") {
-            createBox()
+            createBox(pharmId, this.data)
                 .then(_ => {
-                    Router.go(`/pharms/${idpharm}/boxes/`);
+                    Router.go(`/pharms/${pharmId}/boxes`);
                 })
         } else {
-            updateBox()
+            updateBox(this.id)
                 .then(_ => {
-                    Router.go(`/pharms/${idpharm}/boxes/`);
+                    Router.go(`/pharms/${this.data.idpharm}/boxes`);
                 })
         }
 
     }
 
-    onCancel(e) {
+    onCancel(e, pharmId) {
         e.preventDefault();
-        console.log(idpharm);
-        Router.go(`/pharms/${idpharm}/boxes/`);
+        if (pharmId) {
+            Router.go(`/pharms/${pharmId}/boxes`);
+        } else {
+            Router.go(`/pharms/${this.data.idpharm}/boxes`);
+        }
+        
     }
 
     renderView() {
@@ -103,16 +108,16 @@ export default class BoxEdit extends HTMLElement {
                 <div class="field">
                     <label class="label">Margine d'assunzione</label>
                     <div class="control">
-                        <input required class="input" type="number" name="delta" @change=${e => this.onInputChange(e)} .value=${this.data.delta}>
+                        <input required class="input" type="number" name="delta" @change=${e => this.onInputChange(e)} .value=${this.data.deltatime}>
                     </div>
                 </div>
 
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="button is-link" @click = ${e => this.onSave(e, this.data.idpharm)}>Save</button>
+                        <button class="button is-link" @click = ${e => this.onSave(e, this.pharmId)}>Save</button>
                     </div>
                     <div class="control">
-                        <button class="button is-link is-light" @click = ${e => this.onCancel(e)}>Cancel</button>
+                        <button class="button is-link is-light" @click = ${e => this.onCancel(e, this.pharmId)}>Cancel</button>
                     </div>
                 </div>
            </form>
