@@ -55,12 +55,13 @@ export default class PharmEdit extends HTMLElement {
         if (this.id === "undefined") {
             createPharm(configData.userId, this.data)
                 .then(_ => {
-                    Router.go(`/pharms/`);
+                    Router.go(`/pharms`);
                 })
         } else {
+            console.log(this.data)
             updatePharm(this.id, this.data)
                 .then(_ => {
-                    Router.go(`/pharms/`);
+                    Router.go(`/pharms`);
                 })
         }
 
@@ -68,7 +69,7 @@ export default class PharmEdit extends HTMLElement {
 
     onCancel(e) {
         e.preventDefault();
-        Router.go(`/pharms/`);
+        Router.go(`/pharms`);
     }
 
     renderView() {
@@ -89,14 +90,14 @@ export default class PharmEdit extends HTMLElement {
                 </div>
 
                 <div class="field">
-                    <label class="label">Acccess Point</label>
+                    <label class="label">Access Point</label>
                     <div class="control">
                         <input required class="input" type="text" name="accesspoint" @change=${e => this.onInputChange(e)} .value=${this.data.accesspoint} placeholder="access point...">
                     </div>
                 </div>
 
                 <div class="field">
-                    <label class="label">Pasword</label>
+                    <label class="label">Password</label>
                     <div class="control">
                         <input required class="input" type="password" name="password" @change=${e => this.onInputChange(e)} .value=${this.data.password} >
                     </div>
@@ -119,7 +120,7 @@ export default class PharmEdit extends HTMLElement {
                 <div class="field">
                     <label class="label">gmt</label>
                     <div class="control">
-                        <input required class="input" type="text" name="gmt" @change=${e => this.onInputChange(e)} .value=${this.data.gmt} placeholder="gmt...">
+                        <input required class="input" type="number" name="gmt" @change=${e => this.onInputChange(e)} .value=${this.data.gmt} placeholder="gmt...">
                     </div>
                 </div>
 

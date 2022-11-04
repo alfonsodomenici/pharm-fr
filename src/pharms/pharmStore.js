@@ -17,8 +17,9 @@ const updatePharm = async (id, data) => {
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(data)
-    })
-    return findPharm(id)
+    }    )
+    console.log(resp)
+    //return findPharm(id)
 }
 
 const removePharm = async (id) => {
