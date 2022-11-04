@@ -4,6 +4,7 @@ import "./boxes/BoxList.js";
 import "./boxes/BoxEdit.js";
 import "./Menu.js";
 import "./Home.js"
+import "./users/UserLogin.js"
 import { Router } from "./lib/vaadin-router.js";
 
 const outlet = document.querySelector('main');
@@ -18,6 +19,7 @@ router.setRoutes([
     {path: '/pharms/:pharm/boxes',     component: 'box-list'},
     {path: '/pharms/:pharm/boxes/new',     component: 'box-edit'},
     {path: '/boxes/:box',     component: 'box-edit'},
+    {path: '/login',     component: 'user-login'},
   ]);
 
 export {router};

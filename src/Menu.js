@@ -62,7 +62,9 @@ export default class Menu extends HTMLElement{
                         <a class="navbar-item" href="/home">
                         Home
                         </a>
-                
+                        <a class="navbar-item" href="/login">
+                        Accedi
+                        </a>
                         <a class="navbar-item" href="/pharms">
                         Pharms
                         </a>
