@@ -17,7 +17,7 @@ export default class PharmEdit extends HTMLElement {
 
     connectedCallback() {
         const { location } = router;
-        this.id = location.params.pharm ;
+        this.id = location.params.pharm;
         if (this.id == "undefined") {
             console.log("create..")
             this.data = {
