@@ -56,7 +56,7 @@ export default class BoxEdit extends HTMLElement {
                     Router.go(`/pharms/${pharmId}/boxes`);
                 })
         } else {
-            updateBox(this.id)
+            updateBox(this.id, this.data)
                 .then(_ => {
                     Router.go(`/pharms/${this.data.idpharm}/boxes`);
                 })
