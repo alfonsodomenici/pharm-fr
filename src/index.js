@@ -2,9 +2,10 @@ import "./pharms/PharmList.js";
 import "./pharms/PharmEdit.js";
 import "./boxes/BoxList.js";
 import "./boxes/BoxEdit.js";
+import "./users/userCreate.js";
+import "./users/userPa.js"
 import "./Menu.js";
 import "./Home.js"
-import "./users/UserLogin.js"
 import { Router } from "./lib/vaadin-router.js";
 
 const outlet = document.querySelector('main');
@@ -19,7 +20,8 @@ router.setRoutes([
     {path: '/pharms/:pharm/boxes',     component: 'box-list'},
     {path: '/pharms/:pharm/boxes/new',     component: 'box-edit'},
     {path: '/boxes/:box',     component: 'box-edit'},
-    {path: '/login',     component: 'user-login'},
+    {path: '/pa',     component: 'user-pa'},
+    {path: '/createUser',     component: 'user-create'},
   ]);
 
 export {router};
