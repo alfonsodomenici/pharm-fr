@@ -15,9 +15,6 @@ export default class userCreate extends HTMLElement {
     }
 
     connectedCallback() {
-        const { location } = router;
-        this.id = location.params.pharm;
-        if (this.id == "undefined") {
             console.log("create..")
             this.data = {
                 usr:'',
@@ -27,13 +24,6 @@ export default class userCreate extends HTMLElement {
                 email:'' 
             }
             render(this.renderView(), this.getRoot());
-        } else {
-            findUser(this.id)
-                .then(data => {
-                    this.data = data;
-                    render(this.renderView(), this.getRoot());
-                })
-        }
 
     }
 
@@ -49,23 +39,16 @@ export default class userCreate extends HTMLElement {
             form.reportValidity();
             return;
         }
-        if (this.id === "undefined") {
-            createUser(this.data)
-                .then(_ => {
-                    Router.go(`/pharms/`);
-                })
-        } else {
-            updateUser(this.id, this.data)
-                .then(_ => {
-                    Router.go(`/pharms/`);
-                })
-        }
+        createUser(this.data)
+            .then(_ => {
+                Router.go(`/pa/`);
+            })
 
     }
 
     onCancel(e) {
         e.preventDefault();
-        Router.go(`/pharms/`);
+        Router.go(`/pa/`);
     }
 
     renderView() {

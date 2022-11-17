@@ -1,5 +1,6 @@
 import configData from "./../config.js";
 import { html, render } from "./../lib/lit-html.js";
+import { router } from "./../index.js";
 import { Router } from "./../lib/vaadin-router.js";
 import { removePharm } from "./pharmStore.js";
 import { pharmsByUser } from "./../users/userStore.js"
@@ -23,10 +24,17 @@ export default class PharmList extends HTMLElement {
     }
 
     loadAndRenderPharms(){
-        pharmsByUser(configData.userId).then(data => {
-            this.data = data;
-            render(this.renderView(), this.getRoot());
-        })
+        const { location } = router;
+        this.id = location.params.pharm;
+        if (this.id == "undefined") {
+            alert("Errore, eseguire l'accesso");
+            Router.go(`/home`);
+        } else {
+            pharmsByUser(configData.userId).then(data => {
+                this.data = data;
+                render(this.renderView(), this.getRoot());
+            })
+        }
     }
     /*
     -------------------- eventi -------------------

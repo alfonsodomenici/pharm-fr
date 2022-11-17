@@ -15,18 +15,12 @@ export default class userPa extends HTMLElement {
     }
 
     connectedCallback() {
-        this.loadAndRenderPharms();
+        render(this.renderView(), this.getRoot());
     }
 
     disconnectedCallback() {
     }
 
-    loadAndRenderPharms(){
-        pharmsByUser(configData.userId).then(data => {
-            this.data = data;
-            render(this.renderView(), this.getRoot());
-        })
-    }
     /*
     -------------------- eventi -------------------
     */
@@ -36,15 +30,9 @@ export default class userPa extends HTMLElement {
         Router.go(`/createUser`)
     }
 
-    onTestEvent(e){
-        e.preventDefault(); 
-       const evt = new CustomEvent('blog-event',{
-            detail:{
-                category: 'prova'
-            },
-            bubbles: true
-        })
-        document.dispatchEvent(evt);
+    onLogin(e) {
+        e.preventDefault();
+        Router.go(`/login`)
     }
 
     /*
@@ -58,7 +46,7 @@ export default class userPa extends HTMLElement {
             
             <div class="list">
                 <button @click = ${e => this.onCreate(e)} class="button is-primary">Crea Nuovo Utente</button>
-                <button class="button is-primary">Accedi</button>
+                <button @click = ${e => this.onLogin(e)} class="button is-primary">Accedi</button>
             </div>
         `;
     }

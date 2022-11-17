@@ -42,7 +42,7 @@ export default class UserLogin extends HTMLElement {
 
     onCancel(e) {
         e.preventDefault();
-        Router.go(`/`);
+        Router.go(`/pa/`);
     }
     renderView() {
         return html`
