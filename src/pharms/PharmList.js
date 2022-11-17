@@ -87,9 +87,9 @@ export default class PharmList extends HTMLElement {
 
     renderPharm(p) {
         return html`
-            <div class="list-item" @click = ${e => this.onSelect(e, p.id)}>
+            <div class="list-item">
                 <div class="list-item-content">
-                    <div class="list-item-title">${p.name}</div>
+                    <div class="list-item-title" @click = ${e => this.onSelect(e, p.id)}>${p.name}</div>
                     <div class="list-item-description">${p.ip}</div>
                     <div class="list-item-description">${p.macaddress}</div>
                     <div class="list-item-description">${p.accesspoint}</div>

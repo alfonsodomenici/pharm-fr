@@ -56,19 +56,22 @@ export default class Menu extends HTMLElement{
                         <span aria-hidden="true"></span>
                     </a>
                 </div>
-      
+
                 <div id="navbarBasicExample" class="navbar-menu">
                     <div class="navbar-start">
                         <a class="navbar-item" href="/home">
                         Home
                         </a>
-                        <a class="navbar-item" href="/login">
-                        Accedi
-                        </a>
+                
                         <a class="navbar-item" href="/pharms">
                         Pharms
                         </a>
+
+                        <a class="navbar-item" href="/pa">
+                        Area Personale
+                        </a>
                     </div>
+
                 </div>
             </nav>    
       
